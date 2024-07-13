@@ -32,23 +32,25 @@ const MyProfile = () => {
   };
 
   const handleDelete = async (post) => {
-    const hasConfirmed = await confirm('Are you sure you want to delete this prompt? This action cannot be undone.');
+    const hasConfirmed = confirm(
+      'Are you sure you want to delete this prompt?'
+    );
+
     if (hasConfirmed) {
       try {
-        const response = await fetch(`/api/prompt/${post._id.toString()}`, {
+        await fetch(`/api/prompt/${post._id.toString()}`, {
           method: 'DELETE',
         });
 
-        if (response.ok) {
-          const filteredPosts = posts.filter((p) => p._id !== post._id);
-          setPosts(filteredPosts);
-        }
+        const filteredPosts = posts.filter((p) => p._id !== post._id);
+
+        setPosts(filteredPosts);
       } catch (error) {
-        console.error(error);
+        console.log(error);
       }
     }
-    
-  }
+    router.push(`/`); // redirect to update prompt page after deleting
+  };
 
   return (
     <div>
@@ -57,7 +59,7 @@ const MyProfile = () => {
         desc="Welcome to your personalized profile page"
         data={posts}
         handleEdit={handleEdit}
-        handleDelete={handleDelete}
+         handleDelete={handleDelete}
       />
     </div>
   );
