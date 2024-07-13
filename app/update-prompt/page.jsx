@@ -56,6 +56,7 @@ const EditPrompt = () => {
    type='Edit'
    post={post}
    setpost={setpost}
+   
    submit={submit}
    handleSubmit={UpdatePrompt}
     />
